@@ -14,8 +14,8 @@ dist/
 build/
 
 # OS specific files
-.DS_Store          # macOS
-Thumbs.db         # Windows
+.DS_Store          
+Thumbs.db         
 
 # IDE specific files
 .vscode/
@@ -23,3 +23,6 @@ Thumbs.db         # Windows
 
 # Coverage directory used by tools like istanbul
 coverage/
+
+# Word Files
+*.docx
