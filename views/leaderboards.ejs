@@ -1,18 +1,105 @@
 <!-- The header ejs template is included to ensure our CSS and fonts are loaded -->
 <%- include('partials/header') %>
 
-<h1>Leaderboards</h1>
-<p>Compare yourself to other Math Pros</p>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: #f4f4f9;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
 
-<!-- Leaderboard Entries -->
-<% if (leaderboard && leaderboard.length > 0) { %>
-    <ul>
-        <% leaderboard.forEach(function(entry) { %>
-            <li><%= entry.username %>: <%= entry.streak %> correct answers</li>
-        <% }); %>
-    </ul>
-<% } else { %>
-    <p>No entries yet!</p>
-<% } %>
-</body>
-</html>
+    h1 {
+        color: #333;
+    }
+
+    .leaderboard-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin-top: -50px;
+    }
+
+    .leaderboard-list {
+        list-style: none;
+        padding: 0;
+        width: 100%;
+        max-width: 480px;
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .leaderboard-headers {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px; 
+        padding: 0 20px; 
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #555;
+    }
+
+    .leaderboard-item {
+        background: linear-gradient(to right, #89f7fe, #66a6ff);
+        margin: 10px 0;
+        padding: 15px; 
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .leaderboard-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .username, .streak, .rank {
+        flex-grow: 1;
+        text-align: center; 
+        margin: 0 10px; 
+    }
+
+    /* Specific styles for top 3 */
+    .leaderboard-item:nth-child(1) {
+        background: linear-gradient(to right, #f6d365, #fda085);
+    }
+    .leaderboard-item:nth-child(2) {
+        background: linear-gradient(to right, #84fab0, #8fd3f4);
+    }
+    .leaderboard-item:nth-child(3) {
+        background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+    }
+</style>
+
+
+<h1>Leaderboard</h1>
+<p>See who's leading the game!</p>
+
+<div class="leaderboard-container">
+    <% if (leaderboard && leaderboard.length > 0) { %>
+        <div class="leaderboard-headers">
+            <span class="rank">Rank</span>
+            <span class="username">Username</span>
+            <span class="streak">High Score</span>
+        </div>
+        <ul class="leaderboard-list">
+            <% leaderboard.forEach(function(entry, index) { %>
+                <li class="leaderboard-item">
+                    <span class="rank"><%= index + 1 %></span>
+                    <span class="username"><%= entry.username %></span>
+                    <span class="streak"><%= entry.streak %></span>
+                </li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No entries yet!</p>
+    <% } %>
+</div>

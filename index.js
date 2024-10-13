@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const { generateRandomQuestion, isCorrectAnswer } = require('./utils/mathUtilities');
+const { generateRandomQuestion } = require('./utils/mathUtilities');
+const { updateLeaderboard, getHighestStreak } = require('./utils/leaderboard'); // Ensure these functions are implemented properly
 
 let currentQuestion = '';
-let currentCorrectAnswer = ''; // Store correct answer
+let currentCorrectAnswer = ''; // Store the correct answer
 let currentStreak = 0; // Initialize streak counter
 let currentDifficulty = 1; // Set default difficulty level (1 for easy)
+let leaderboard = [{ username: "user1", streak: 5 },{ username: "user2", streak: 5 },{ username: "user3", streak: 10 },{ username: "user4", streak: 100 },{ username: "user5", streak: 1000 }]; // Initialize the leaderboard array
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
@@ -36,16 +38,19 @@ app.get('/quiz', (req, res) => {
 
 // Handles quiz submissions
 app.post('/quiz', (req, res) => {
-    const { answer } = req.body;
+    const { answer, username } = req.body; // Assume username is passed from the client
     const isCorrect = parseFloat(answer) === parseFloat(currentCorrectAnswer); // Check if answer is correct
 
     if (isCorrect) {
         currentStreak++; // Increment streak on correct answer
+        const highestStreak = getHighestStreak(leaderboard, username);
+        if (currentStreak > highestStreak) {
+            updateLeaderboard(leaderboard, username, currentStreak); // Update only if current streak is a new high
+        }
     } else {
         currentStreak = 0; // Reset streak on incorrect answer
     }
 
-    // Generate a new question and correct answer for the next round
     const [newQuestion, newCorrectAnswer] = generateRandomQuestion(currentDifficulty);
     currentQuestion = newQuestion;
     currentCorrectAnswer = newCorrectAnswer;
@@ -61,7 +66,11 @@ app.post('/quiz', (req, res) => {
 
 // Leaderboard route
 app.get('/leaderboards', (req, res) => {
-    res.render('leaderboards', { streak: currentStreak }); // Pass current streak to leaderboards
+    // Sort the leaderboard by streak in descending order
+    leaderboard.sort((a, b) => b.streak - a.streak);
+
+    res.render('leaderboards', { leaderboard: leaderboard });
+
 });
 
 // Start the server
