@@ -8,9 +8,11 @@ let currentQuestion = ''; // Store the current question
 let currentCorrectAnswer = ''; // Store the correct answer
 let currentStreak = 0; // Initialize streak counter
 let currentDifficulty = 1; // Set default difficulty level (1 for easy)
+let questionsCompleted = 0; // Initialize questions completed counter
+let questionsSuccessful = 0; // Initialize questions successful counter
+let numQuestions = 3; // Set number of questions per quiz
 let leaderboard = [{ username: "user1", streak: 5 },{ username: "user2", streak: 5 },{ username: "user3", streak: 10 },{ username: "user4", streak: 100 },{ username: "user5", streak: 1000 }]; // Initialize the leaderboard array
 
-// Set the view engine to EJS
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -31,6 +33,9 @@ app.get('/quiz', (req, res) => {
     currentCorrectAnswer = correctAnswer;
     res.render('quiz', {
         question: currentQuestion,
+        questionsCompleted : questionsCompleted+1,
+        questionsSuccessful : questionsSuccessful,
+        numQuestions : numQuestions,
         correctAnswer: currentCorrectAnswer,
         streak: currentStreak,
         difficulty: currentDifficulty
@@ -42,6 +47,7 @@ app.post('/quiz', (req, res) => {
     const { answer, username } = req.body; // Get answer and username from form submission
     const isCorrect = parseFloat(answer) === parseFloat(currentCorrectAnswer); // Check if answer is correct
 
+  
     if (isCorrect) {
         currentStreak++; // Increment streak on correct answer
         const highestStreak = getHighestStreak(leaderboard, username);
@@ -52,6 +58,20 @@ app.post('/quiz', (req, res) => {
         currentStreak = 0; // Reset streak on incorrect answer
     }
 
+    questionsCompleted++; 
+
+    if (questionsCompleted >= numQuestions) {
+        res.render('quiz-completion', { // Render completion page instead of another question
+            questionsCompleted: questionsCompleted,
+            questionsSuccessful: questionsSuccessful,
+            streak: currentStreak,
+            highestStreak : getHighestStreak(leaderboard, username)
+        });
+        questionsCompleted = 0; // Reset questions completed for the next quiz
+        return;
+    }
+
+
     const [newQuestion, newCorrectAnswer] = getRandomQuestion(currentDifficulty);
     currentQuestion = newQuestion;
     currentCorrectAnswer = newCorrectAnswer;
@@ -59,6 +79,8 @@ app.post('/quiz', (req, res) => {
     const prompt = getRandomPrompt(isCorrect);
     res.render('quiz', {
         question: currentQuestion,
+        questionsCompleted : questionsCompleted+1,
+        numQuestions : numQuestions,
         correctAnswer: currentCorrectAnswer, 
         streak: currentStreak,
         difficulty: currentDifficulty,

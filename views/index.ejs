@@ -1,15 +1,76 @@
 <!-- The header ejs template is included to ensure our CSS and fonts are loaded -->
 <%- include('partials/header') %>
-<main class="main-content index_container">
-    <h1>Welcome to the Math Competition App</h1>
-    <div class="navigation__container">
-        <button class="comic-button" onclick="location.href='/quiz';">
-            Start Quiz
-        </button>
-        <button class="comic-button" onclick="location.href='/leaderboards';">
-            View Leaderboards
-        </button>
-    </div>
-</main>
-</body>
-</html>
+    <main class="main-content index_container">
+        <h1>Welcome to the Math Competition App</h1>
+        <div class="navigation__container">
+
+            <!-- Difficulty Selector -->
+            <div class="difficulty-selector">
+                <label for="easy">
+                    <input class="difficulty-input" type="radio" id="easy" name="difficulty" value="1"
+                        onchange="updateDifficulty('1')">
+                    <div class="difficulty-tile">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.14 3.507a1 1 0 001.14.648l3.686-.308c.942-.078 1.332 1.141.641 1.65l-2.85 2.096a1 1 0 00-.364 1.118l1.07 3.755c.307.93-.755 1.69-1.548 1.118L12 13.973l-3.162 2.047c-.792.573-1.854-.187-1.548-1.118l1.07-3.755a1 1 0 00-.364-1.118l-2.85-2.096c-.69-.51-.3-1.728.642-1.65l3.686.308a1 1 0 001.14-.648l1.14-3.507z" />
+                        </svg> <span class="difficulty-label">Easy</span>
+                    </div>
+                </label>
+                <label for="medium">
+                    <input class="difficulty-input" type="radio" id="medium" name="difficulty" value="2"
+                        onchange="updateDifficulty('2')">
+                    <div class="difficulty-tile">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.14 3.507a1 1 0 001.14.648l3.686-.308c.942-.078 1.332 1.141.641 1.65l-2.85 2.096a1 1 0 00-.364 1.118l1.07 3.755c.307.93-.755 1.69-1.548 1.118L12 13.973l-3.162 2.047c-.792.573-1.854-.187-1.548-1.118l1.07-3.755a1 1 0 00-.364-1.118l-2.85-2.096c-.69-.51-.3-1.728.642-1.65l3.686.308a1 1 0 001.14-.648l1.14-3.507z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.14 3.507a1 1 0 001.14.648l3.686-.308c.942-.078 1.332 1.141.641 1.65l-2.85 2.096a1 1 0 00-.364 1.118l1.07 3.755c.307.93-.755 1.69-1.548 1.118L12 13.973l-3.162 2.047c-.792.573-1.854-.187-1.548-1.118l1.07-3.755a1 1 0 00-.364-1.118l-2.85-2.096c-.69-.51-.3-1.728.642-1.65l3.686.308a1 1 0 001.14-.648l1.14-3.507z" />
+                        </svg>
+                        <span class="difficulty-label">Medium</span>
+                    </div>
+                </label>
+                <label for="hard">
+                    <input class="difficulty-input" type="radio" id="hard" name="difficulty" value="3"
+                        onchange="updateDifficulty('3')">
+                    <div class="difficulty-tile">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.14 3.507a1 1 0 001.14.648l3.686-.308c.942-.078 1.332 1.141.641 1.65l-2.85 2.096a1 1 0 00-.364 1.118l1.07 3.755c.307.93-.755 1.69-1.548 1.118L12 13.973l-3.162 2.047c-.792.573-1.854-.187-1.548-1.118l1.07-3.755a1 1 0 00-.364-1.118l-2.85-2.096c-.69-.51-.3-1.728.642-1.65l3.686.308a1 1 0 001.14-.648l1.14-3.507z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.14 3.507a1 1 0 001.14.648l3.686-.308c.942-.078 1.332 1.141.641 1.65l-2.85 2.096a1 1 0 00-.364 1.118l1.07 3.755c.307.93-.755 1.69-1.548 1.118L12 13.973l-3.162 2.047c-.792.573-1.854-.187-1.548-1.118l1.07-3.755a1 1 0 00-.364-1.118l-2.85-2.096c-.69-.51-.3-1.728.642-1.65l3.686.308a1 1 0 001.14-.648l1.14-3.507z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.14 3.507a1 1 0 001.14.648l3.686-.308c.942-.078 1.332 1.141.641 1.65l-2.85 2.096a1 1 0 00-.364 1.118l1.07 3.755c.307.93-.755 1.69-1.548 1.118L12 13.973l-3.162 2.047c-.792.573-1.854-.187-1.548-1.118l1.07-3.755a1 1 0 00-.364-1.118l-2.85-2.096c-.69-.51-.3-1.728.642-1.65l3.686.308a1 1 0 001.14-.648l1.14-3.507z" />
+                        </svg> <span class="difficulty-label">Hard</span>
+                    </div>
+                </label>
+            </div>
+            <button class="comic-button" onclick="location.href='/quiz';">
+                Start Quiz
+            </button>
+            <button class="comic-button" onclick="location.href='/leaderboards';">
+                View Leaderboards
+            </button>
+        </div>
+
+    </main>
+    </body>
+
+    <script>
+        function updateDifficulty(selectedDifficulty) {
+            document.getElementById('difficulty').value = selectedDifficulty; // Currently not working
+        }
+    </script>
+
+    </html>
