@@ -4,15 +4,15 @@
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        background: #f4f4f9;
+        background: linear-gradient(90deg, rgb(108, 0, 0) 0%, rgb(82, 0, 103) 50%, rgb(0, 7, 128) 100%);
         color: #333;
         margin: 0;
         padding: 20px;
         text-align: center;
     }
 
-    h1 {
-        color: #333;
+    h1,p,.leaderboard-headers {
+        color: white;
     }
 
     .leaderboard-container {
@@ -20,8 +20,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        min-height: 100vh;
-        margin-top: -50px;
+        min-height: 90vh;
     }
 
     .leaderboard-list {
@@ -30,18 +29,16 @@
         width: 100%;
         max-width: 480px;
         text-align: left;
-        margin-top: 10px;
     }
 
     .leaderboard-headers {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px; 
-        padding: 0 20px; 
+        padding: 0px; 
         font-size: 16px;
         font-weight: bold;
         text-transform: uppercase;
-        color: #555;
     }
 
     .leaderboard-item {
@@ -64,8 +61,13 @@
     .username, .streak, .rank {
         flex-grow: 1;
         text-align: center; 
-        margin: 0 10px; 
+        margin: 0 30px; 
+        flex-grow: 0;  /* Do not allow these columns to grow */
+        flex-shrink: 0;  /* Prevent shrinking to keep alignment */
     }
+
+
+
 
     /* Specific styles for top 3 */
     .leaderboard-item:nth-child(1) {
@@ -88,10 +90,10 @@
         <div class="leaderboard-headers">
             <span class="rank">Rank</span>
             <span class="username">Username</span>
-            <span class="streak">High Score</span>
+            <span class="streak">High <br>Score</span>
         </div>
         <ul class="leaderboard-list">
-            <% leaderboard.forEach(function(entry, index) { %>
+            <% leaderboard.slice(0,10).forEach(function(entry, index) { %>
                 <li class="leaderboard-item">
                     <span class="rank"><%= index + 1 %></span>
                     <span class="username"><%= entry.username %></span>
