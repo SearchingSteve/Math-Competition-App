@@ -1,48 +1,213 @@
 body {
-    background: linear-gradient(90deg, rgba(93,142,251,1) 0%, rgba(93,142,251,1) 50%, rgba(0,212,255,1) 100%);
-    height: 100%;
-    padding: 0px;
-    margin: 0px;
+    background: linear-gradient(90deg, rgb(132, 0, 127) 0%, rgb(162, 0, 255) 50%, rgb(0, 13, 255) 100%);
+    height: 100vh;
+    padding: 0;
+    margin: 0;
     font-family: 'Lato', sans-serif;
     display: flex;
+    justify-content: center;
+    align-items: center;
     color: #F6F6F6;
+    flex-direction: column;
+    text-align: center;
 }
 
 .main-content {
     display: flex;
-    justify-content: center;
-    flex: 1;
-    align-items: center;
-    flex-direction: column;
-}
-
-.index_container .navigation__container {
-    display: flex;
-    flex-direction: row;
-}
-
-.index_container .navigation__container a {
-    background-color: #FFFFFF;
-    aspect-ratio: 1;
-    display: flex;
-    height: 300px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+}
+
+h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
     border-radius: 5px;
-    margin-right: 20px;
-    font-size: 25px;
+    border: 1px solid #F6F6F6;
+    margin-bottom: 20px;
+    width: 200px;
 }
 
-.index_container .navigation__container a:link {
-    color: #5d8efb;
-    text-decoration: none;
+button {
+    padding: 10px 20px;
+    background-color: #5d8efb;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
 }
+
+button:hover {
+    background-color: #497ae3;
+}
+
+
+.back-button-container {
+  position: absolute; /* or 'fixed' if you want it to stay in view on scroll */
+  top: 10px;
+  left: 10px;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF; /* Bootstrap primary blue, for example */
+  color: white;
+  text-decoration: none; /* Remove underline from link */
+  border-radius: 5px; /* Rounded corners for aesthetic */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional: adds shadow for 3D effect */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.back-button:hover, .back-button:focus {
+  background-color: #0056b3; /* Darker blue on hover/focus */
+  color: white;
+}
+
+
+.navigation__container {
+    display: flex;
+    flex-direction: column; /* Stacks buttons vertically */
+    align-items: center; /* Center aligns the buttons horizontally */
+}
+
+
+
+
+
+
+
+
+/* Difficulty Selector */
+.difficulty-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 350px;
+  user-select: none;
+}
+
+.difficulty-selector > * {
+  margin: 6px;
+}
+
+.difficulty-input:checked + .difficulty-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  color: #2260ff;
+}
+
+.difficulty-input:checked + .difficulty-tile .difficulty-icon svg {
+  fill: #2260ff;
+}
+
+.difficulty-input:checked + .difficulty-tile .difficulty-label {
+  color: #2260ff;
+}
+
+.difficulty-input:focus + .difficulty-tile {
+  border-color: #2260ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+}
+
+.difficulty-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 0.5rem;
+  border: 2px solid #b5bfd9;
+  background-color: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.difficulty-icon svg {
+  width: 2rem;
+  height: 2rem;
+  fill: #494949;
+  margin-bottom: 4px; /* Spacing between icon and label */
+}
+
+.difficulty-label {
+  color: #707070;
+  text-align: center;
+  font-size: 13px;
+  transition: color 0.375s ease;
+}
+
+.difficulty-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+
+
+
+  /* Comic-Style Button */
+  /* From Uiverse.io by Gautammsharma */ 
+.comic-button {
+    display: inline-block;
+    margin: 10px 0; 
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff5252;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
   
-.index_container .navigation__container a:visited {
-    text-decoration: none;
-}
-
-.index_container .navigation__container :last-child {
-    margin-right: 0px
-}
+  .comic-button:hover {
+    background-color: #fff;
+    color: #ff5252;
+    border: 2px solid #ff5252;
+    box-shadow: 5px 5px 0px #ff5252;
+  }
+  
+  .comic-button:active {
+    background-color: #fcf414;
+    box-shadow: none;
+    transform: translateY(4px);
+  }
+  

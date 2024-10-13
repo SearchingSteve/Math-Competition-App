@@ -1,13 +1,13 @@
 {
-  "name": "keyin-math-competition-base",
+  "name": "math-competition",
   "version": "1.0.0",
-  "description": "A repository to use as a base when building your math competition app.",
+  "description": "Math competition application using Express.js",
   "main": "index.js",
   "scripts": {
     "start": "node --watch index.js",
     "test": "jest"
   },
-  "author": "Matthew English",
+  "author": "Stephen Crocker",
   "license": "MIT",
   "devDependencies": {
     "ejs": "^3.1.10",

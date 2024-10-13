@@ -1,0 +1,18 @@
+<!-- The header ejs template is included to ensure our CSS and fonts are loaded -->
+<%- include('partials/header') %>
+
+<h1>Leaderboards</h1>
+<p>Compare yourself to other Math Pros</p>
+
+<!-- Leaderboard Entries -->
+<% if (leaderboard && leaderboard.length > 0) { %>
+    <ul>
+        <% leaderboard.forEach(function(entry) { %>
+            <li><%= entry.username %>: <%= entry.streak %> correct answers</li>
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>No entries yet!</p>
+<% } %>
+</body>
+</html>
