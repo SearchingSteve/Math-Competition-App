@@ -1,10 +1,11 @@
+
 /**
  * Generates a random multiplication, division, subtraction, or addition question
  * 
  * @param {number} difficulty - The difficulty level: 1 for easy, 2 for normal, 3 for hard.
- * @returns {List} The randomly generated math question.
+ * @returns {List} The randomly generated math question and respective answer.
  */
-function generateRandomQuestion(difficulty) {
+function getRandomQuestion(difficulty) {
     let questionText = '';
     let num1, num2, num3, operator1, operator2;
 
@@ -68,7 +69,7 @@ function getRandomInt(digits) {
 function getRandomOperator() {
     const operators = ['+', '-', '*', '/'];
     const chosenOperator = operators[Math.floor(Math.random() * operators.length)];
-    console.log('Chosen operator:', chosenOperator); // Debugging line to see what operator is chosen
+    console.log('Chosen operator:', chosenOperator);
     return chosenOperator;
 }
 
@@ -79,17 +80,29 @@ function isCorrectAnswer(question, answer) {
         console.error("Question format error:", question);
         return false;
     }
-
-    // Calculate the correct answer using eval safely since the input is controlled
+    // Evaluate the expression and round to handle floating point precision issues
     let correctAnswer = Math.round(eval(matches[1]));
-
-    // Compare the evaluated answer to the provided answer with potential floating point adjustments
     return Math.abs(correctAnswer - parseFloat(answer)) < 0.00001;
 }
 
+/**
+ * Select random prompt message from the submissionPrompts array.
+ * 
+ * @param {boolean} isCorrect - Is user's answer correct or not.
+ * @returns {string} Random feedback message (Correct or Incorrect).
+ */
+function getRandomPrompt(isCorrect) {
+    let submissionPrompts = [['Correct!', 'Incorrect. Try again!'], ['Great job!', 'Oops! Try again!'], ['Awesome!', 'Not quite. Try again!']];
+    const prompts = submissionPrompts[Math.floor(Math.random() * submissionPrompts.length)];
+    return isCorrect ? prompts[0] : prompts[1];
+}
+
+
+// Export the functions
 module.exports = {
-    generateRandomQuestion,
+    getRandomQuestion,
     isCorrectAnswer,
-    getRandomInt
+    getRandomInt,
+    getRandomPrompt
 };
 
