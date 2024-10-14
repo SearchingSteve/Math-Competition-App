@@ -174,8 +174,8 @@ function isCorrectAnswer(question, answer) {
     return false;
   }
   // Evaluate the expression and round to handle floating point precision issues
-  let correctAnswer = Math.round(eval(matches[1]));
-  return Math.abs(correctAnswer - parseFloat(answer)) < 0.00001;
+  let correctAnswer = parseFloat(eval(matches[1]).toFixed(2)); // or another precision that suits your needs
+  return Math.abs(correctAnswer - parseFloat(answer)) <= 0.01; // Adjust tolerance as needed
 }
 
 /**
@@ -199,6 +199,5 @@ function getRandomPrompt(isCorrect) {
 module.exports = {
   getRandomQuestion,
   isCorrectAnswer,
-  getRandomInt,
   getRandomPrompt,
 };
