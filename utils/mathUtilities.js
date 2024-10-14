@@ -6,7 +6,7 @@
  * @returns {List} The randomly generated math question and respective answer.
  */
 function getRandomQuestion(difficulty) {
-  console.log("Received difficulty:", difficulty);
+  // console.log("mathUtils Received difficulty:", difficulty);
 
   let questionText = "";
   let num1, num2, num3, operator1, operator2;
@@ -45,30 +45,52 @@ function getRandomQuestion(difficulty) {
   return [questionText, correctAnswer];
 }
 
+
 /**
- * Constructs a math question string with appropriate operations and ensures divisions result in whole numbers.
+ * Constructs a math question string with appropriate operations and ensures divisions result in whole numbers,
+ * while also correctly applying BEDMAS/BODMAS rules through the use of parentheses.
  *
  * @param {number} num1 - The first number.
  * @param {number} num2 - The second number (divisor for division operations).
  * @param {number} num3 - The third number, used in difficulty level 3.
  * @param {string} operator1 - The first operator.
  * @param {string} operator2 - The second operator, used in difficulty level 3.
- * @returns {string} A math question string that ensures whole number results for all operations.
+ * @returns {string} A math question string that ensures whole number results for all operations and
+ * respects the order of operations.
  */
 function stringifyQuestion(num1, num2, num3, operator1, operator2) {
-    // Managing division to prevent results that round to zero
-    if (operator1 === '/') {
-        num1 = num2 * getRandomMultiplier(num2); // Ensuring num1 is a multiple of num2 and large enough
-    }
-    if (operator2 === '/') {
-        // Adjust num3 to ensure the operation does not trivialize the result
-        let tempResult = eval(`${num1} ${operator1} ${num2}`);
-        num3 = getRandomNonTrivialDivisor(tempResult);
-    }
+  // Ensure the division results in whole numbers and respect operation precedence.
+  if (operator1 === '/') {
+      num1 = num2 * getRandomMultiplier(1);  // Ensuring num1 is a multiple of num2 to keep results whole.
+  }
+  if (operator2 === '/') {
+      let tempResult = eval(`${num1} ${operator1} ${num2}`);
+      num3 = getRandomNonTrivialDivisor(tempResult);
+  }
 
-    let questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
-    return `What is ${questionStr}?`;
+  // Apply parentheses based on operator precedence to ensure correct order of operations.
+  let questionStr = `${num1} ${operator1} ${num2}`;
+  if (operator1 === '+' || operator1 === '-') {
+      if (operator2 === '*' || operator2 === '/') {
+          // Wrap second operation in parentheses if the first is + or -, and second is * or /.
+          questionStr = `${num1} ${operator1} (${num2} ${operator2} ${num3})`;
+      } else {
+          // No parentheses needed if both are + or - or if second is also + or -.
+          questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
+      }
+  } else {
+      if (operator2 === '+' || operator2 === '-') {
+          // Wrap first operation in parentheses if the first is * or /, and second is + or -.
+          questionStr = `(${num1} ${operator1} ${num2}) ${operator2} ${num3}`;
+      } else {
+          // No parentheses needed if both are * or /.
+          questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
+      }
+  }
+
+  return `What is ${questionStr}?`;
 }
+
 
 /**
  * Generates a random integer with specified number of digits.
@@ -110,7 +132,7 @@ function simpleDividend(divisor, operator, digits) {
 function getRandomNonTrivialDivisor(number) {
     let divisor;
     do {
-        divisor = getRandomNonZeroInt(1); // or adjust the range based on 'number'
+        divisor = getRandomNonZeroInt(1);
     } while (number / divisor < 1); // Ensure the result is not trivially small or zero
     return divisor;
 }
@@ -122,7 +144,7 @@ function getRandomNonTrivialDivisor(number) {
  * @returns {number} A multiplier that ensures non-trivial division results.
  */
 function getRandomMultiplier(base) {
-    return Math.ceil(base / 10) + 1; // Simple heuristic to get a larger number
+    return Math.ceil(base / 10) + 1;
 }
 
 /**

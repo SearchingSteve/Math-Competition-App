@@ -2,6 +2,10 @@
 <%- include('partials/header') %>
     <main class="main-content index_container">
         <h1>Welcome to the Math Competition App</h1>
+        <div class="username-container">
+            <span class="username"><%= username %></span> 
+          </div>
+          
         <div class="navigation__container">
 
             <form action="/quiz" method="get">
@@ -70,7 +74,7 @@
         // Log the difficulty choice for debugging
     document.querySelectorAll('.difficulty-input').forEach(input => {
         input.addEventListener('change', function() {
-            console.log("Difficulty set to: " + this.value);
+            console.log("Difficulty set on start quiz to: " + this.value);
         });
     });
     </script>

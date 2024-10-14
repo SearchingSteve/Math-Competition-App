@@ -10,7 +10,7 @@
 function updateLeaderboard(leaderboard, username, streak) {
     // Check if username is falsy or empty and set default
     if (!username || username.trim() === '') {
-        username = "MyUser"; // Default username if none provided
+        throw new Error("Invalid username: " + username);
     }
 
     const index = leaderboard.findIndex(entry => entry.username === username);
