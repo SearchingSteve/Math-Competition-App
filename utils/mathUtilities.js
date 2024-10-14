@@ -6,8 +6,6 @@
  * @returns {List} The randomly generated math question and respective answer.
  */
 function getRandomQuestion(difficulty) {
-  // console.log("mathUtils Received difficulty:", difficulty);
-
   let questionText = "";
   let num1, num2, num3, operator1, operator2;
   const level = parseInt(difficulty, 10);
@@ -40,11 +38,12 @@ function getRandomQuestion(difficulty) {
       throw new Error("Invalid difficulty level: " + difficulty);
   }
 
-  let correctAnswer = Math.round(eval(questionText.replace('What is ', '').replace('?', '')));
+  let correctAnswer = Math.round(
+    eval(questionText.replace("What is ", "").replace("?", ""))
+  );
   console.log("Question: ", questionText, "Answer: ", correctAnswer);
   return [questionText, correctAnswer];
 }
-
 
 /**
  * Constructs a math question string with appropriate operations and ensures divisions result in whole numbers,
@@ -60,37 +59,36 @@ function getRandomQuestion(difficulty) {
  */
 function stringifyQuestion(num1, num2, num3, operator1, operator2) {
   // Ensure the division results in whole numbers and respect operation precedence.
-  if (operator1 === '/') {
-      num1 = num2 * getRandomMultiplier(1);  // Ensuring num1 is a multiple of num2 to keep results whole.
+  if (operator1 === "/") {
+    num1 = num2 * getRandomMultiplier(1); // Ensuring num1 is a multiple of num2 to keep results whole.
   }
-  if (operator2 === '/') {
-      let tempResult = eval(`${num1} ${operator1} ${num2}`);
-      num3 = getRandomNonTrivialDivisor(tempResult);
+  if (operator2 === "/") {
+    let tempResult = eval(`${num1} ${operator1} ${num2}`);
+    num3 = getRandomNonTrivialDivisor(tempResult);
   }
 
   // Apply parentheses based on operator precedence to ensure correct order of operations.
   let questionStr = `${num1} ${operator1} ${num2}`;
-  if (operator1 === '+' || operator1 === '-') {
-      if (operator2 === '*' || operator2 === '/') {
-          // Wrap second operation in parentheses if the first is + or -, and second is * or /.
-          questionStr = `${num1} ${operator1} (${num2} ${operator2} ${num3})`;
-      } else {
-          // No parentheses needed if both are + or - or if second is also + or -.
-          questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
-      }
+  if (operator1 === "+" || operator1 === "-") {
+    if (operator2 === "*" || operator2 === "/") {
+      // Wrap second operation in parentheses if the first is + or -, and second is * or /.
+      questionStr = `${num1} ${operator1} (${num2} ${operator2} ${num3})`;
+    } else {
+      // No parentheses needed if both are + or - or if second is also + or -.
+      questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
+    }
   } else {
-      if (operator2 === '+' || operator2 === '-') {
-          // Wrap first operation in parentheses if the first is * or /, and second is + or -.
-          questionStr = `(${num1} ${operator1} ${num2}) ${operator2} ${num3}`;
-      } else {
-          // No parentheses needed if both are * or /.
-          questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
-      }
+    if (operator2 === "+" || operator2 === "-") {
+      // Wrap first operation in parentheses if the first is * or /, and second is + or -.
+      questionStr = `(${num1} ${operator1} ${num2}) ${operator2} ${num3}`;
+    } else {
+      // No parentheses needed if both are * or /.
+      questionStr = `${num1} ${operator1} ${num2} ${operator2} ${num3}`;
+    }
   }
 
   return `What is ${questionStr}?`;
 }
-
 
 /**
  * Generates a random integer with specified number of digits.
@@ -128,13 +126,12 @@ function simpleDividend(divisor, operator, digits) {
   }
 }
 
-
 function getRandomNonTrivialDivisor(number) {
-    let divisor;
-    do {
-        divisor = getRandomNonZeroInt(1);
-    } while (number / divisor < 1); // Ensure the result is not trivially small or zero
-    return divisor;
+  let divisor;
+  do {
+    divisor = getRandomNonZeroInt(1);
+  } while (number / divisor < 1); // Ensure the result is not trivially small or zero
+  return divisor;
 }
 
 /**
@@ -144,7 +141,7 @@ function getRandomNonTrivialDivisor(number) {
  * @returns {number} A multiplier that ensures non-trivial division results.
  */
 function getRandomMultiplier(base) {
-    return Math.ceil(base / 10) + 1;
+  return Math.ceil(base / 10) + 1;
 }
 
 /**
@@ -153,7 +150,7 @@ function getRandomMultiplier(base) {
  * @returns {string} A random operator (+, -, *, /).
  */
 function getRandomOperator() {
-  const operators = [ "+","-","*","/"];
+  const operators = ["+", "-", "*", "/"];
   const chosenOperator =
     operators[Math.floor(Math.random() * operators.length)];
   console.log("Chosen operator:", chosenOperator);

@@ -7,7 +7,7 @@
         background: linear-gradient(90deg, rgb(108, 0, 0) 0%, rgb(82, 0, 103) 50%, rgb(0, 7, 128) 100%);
         color: #333;
         margin: 0;
-        padding: 20px;
+        padding: 100px;
         text-align: center;
     }
 
@@ -20,15 +20,11 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        min-height: 90vh;
     }
 
     .leaderboard-list {
         list-style: none;
         padding: 0;
-        width: 100%;
-        max-width: 480px;
-        text-align: left;
     }
 
     .leaderboard-headers {
@@ -66,9 +62,6 @@
         flex-shrink: 0;  /* Prevent shrinking to keep alignment */
     }
 
-
-
-
     /* Specific styles for top 3 */
     .leaderboard-item:nth-child(1) {
         background: linear-gradient(to right, #f6d365, #fda085);
@@ -82,10 +75,30 @@
 </style>
 
 
-<h1>Leaderboard</h1>
-<p>See who's leading the game!</p>
 
+<!-- Back Button with Confirmation and Reset Logic -->
+<div class="back-button-container">
+    <a href="/?reset=true" class="back-button">
+        Back to Home
+    </a>
+  </div>
+
+    
+         <!-- Display current user username -->
+  <div class="username-container">
+    <span class="username">
+      <%= username %>
+      <br>
+      <!-- Display Streak -->
+  <span class="streak">Current Streak: <%= streak %>
+  </span>
+    </span>
+    </div>
+        
+<!-- Main leaderboard section -->
 <div class="leaderboard-container">
+    <h1>Leaderboard</h1>
+<p>See who's leading the game!</p>
     <% if (leaderboard && leaderboard.length > 0) { %>
         <div class="leaderboard-headers">
             <span class="rank">Rank</span>

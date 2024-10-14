@@ -11,26 +11,25 @@ let difficulty = 1; // Set default difficulty level (1 for easy)
 let questionsCompleted = 0; // Initialize questions completed counter
 let questionsSuccessful = 0; // Initialize questions successful counter
 let numQuestions = 3; // Set number of questions per quiz
-let username = "Guest"; // Initialize username 
+let username = "Guest"; // Initialize username
 // Initialize the leaderboard array
- let leaderboard = [
-    { username: "Isaac", streak: 1 },
-    { username: "Carl", streak: 2 },
-    { username: "Albert", streak: 3 },
-    { username: "Blaise", streak: 4 },
-    { username: "Leonhard", streak: 5 },
-    { username: "Sophie", streak: 10 },
-    { username: "Pythagoras", streak: 20 },
-    { username: "Ada", streak: 30 },
-    // { username: "Rene", streak: 45 },
-    // { username: "Archimedes", streak: 50 },
-    // { username: "Euclid", streak: 65 },
-    // { username: "Emmy", streak: 75 },
-    // { username: "Niels", streak: 85 },
-    // { username: "David", streak: 95 },
-    // { username: "Bernhard", streak: 100 }
+let leaderboard = [
+  { username: "Isaac", streak: 1 },
+  { username: "Carl", streak: 2 },
+  { username: "Albert", streak: 3 },
+  { username: "Blaise", streak: 4 },
+  { username: "Leonhard", streak: 5 },
+  { username: "Sophie", streak: 10 },
+  { username: "Pythagoras", streak: 20 },
+  { username: "Ada", streak: 30 },
+  // { username: "Rene", streak: 45 },
+  // { username: "Archimedes", streak: 50 },
+  // { username: "Euclid", streak: 65 },
+  // { username: "Emmy", streak: 75 },
+  // { username: "Niels", streak: 85 },
+  // { username: "David", streak: 95 },
+  // { username: "Bernhard", streak: 100 }
 ];
-
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -38,20 +37,19 @@ app.use(express.static("public"));
 
 // Home route
 app.get("/", (req, res) => {
-    // Check if reset has been requested
-    if (req.query.reset) {
-      questionsCompleted = 0; // Reset questions completed counter
-      // Optionally reset other quiz-related data here if needed
-    }
-    res.render("index", {
-      username,
-    });
+  // Check if reset has been requested
+  if (req.query.reset) {
+    questionsCompleted = 0; // Reset questions completed counter
+  }
+  res.render("index", {
+    username,
+    streak: currentStreak,
   });
-  
+});
 
 // Quiz route
 app.get("/quiz", (req, res) => {
-  const newDifficulty = req.query.difficulty || difficulty; 
+  const newDifficulty = req.query.difficulty || difficulty;
   difficulty = parseInt(newDifficulty, 10);
   const [question, correctAnswer] = getRandomQuestion(difficulty);
   currentQuestion = question;
@@ -90,17 +88,15 @@ app.post("/quiz", (req, res) => {
   }
 
   questionsCompleted++;
-  
 
   if (questionsCompleted >= numQuestions) {
     res.render("quiz-completion", {
       // Render completion page instead of another question
+      username,
       questionsCompleted,
       questionsSuccessful,
       streak: currentStreak,
-      highestStreak
-      
-      
+      highestStreak,
     });
     questionsCompleted = 0; // Reset questions completed for the next quiz
     questionsSuccessful = 0; // Reset questions successful for the next quiz
@@ -129,7 +125,11 @@ app.get("/leaderboards", (req, res) => {
   // Sort the leaderboard by streak in descending order
   leaderboard.sort((a, b) => b.streak - a.streak);
 
-  res.render("leaderboards", { leaderboard: leaderboard });
+  res.render("leaderboards",
+    { leaderboard: leaderboard, 
+      username: username,
+      streak: currentStreak,
+    });
 });
 
 // Start the server

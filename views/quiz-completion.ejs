@@ -1,12 +1,23 @@
+<!-- The header ejs template is included to ensure our CSS and fonts are loaded -->
 <%- include('partials/header') %>
 
+<!-- Display current user username -->
+<div class="username-container">
+  <span class="username">
+    <%= username %>
+    <br />
+    <!-- Display Streak -->
+    <span class="streak">Current Streak: <%= streak %> </span>
+  </span>
+</div>
+
+<!-- Display quiz completion message -->
 <h1>Quiz Completed!</h1>
-<p>You got <%= questionsSuccessful%> out of <%= questionsCompleted%> correct</p>
-<p>Your current streak: <%= streak %></p>
+
+<!-- Display quiz results -->
+<p>You got <%= questionsSuccessful %> out of <%= questionsCompleted %> correct</p>
 <p>Your highest streak: <%= highestStreak %></p>
 
-
-
+<!-- Links for user navigation -->
 <a href="/quiz">Start New Quiz</a>
 <a href="/">Return to Home Page</a>
-
