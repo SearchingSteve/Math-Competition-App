@@ -10,7 +10,7 @@ let currentStreak = 0; // Initialize streak counter
 let difficulty = 1; // Set default difficulty level (1 for easy)
 let questionsCompleted = 0; // Initialize questions completed counter
 let questionsSuccessful = 0; // Initialize questions successful counter
-let numQuestions = 3; // Set number of questions per quiz
+let numQuestions = 10; // Set number of questions per quiz
 let username = "Guest"; // Initialize username
 
 let leaderboard = [
@@ -22,13 +22,13 @@ let leaderboard = [
   { username: "Sophie", streak: 10, date: "2024-09-26" },
   { username: "Pythagoras", streak: 20, date: "2024-09-25" },
   { username: "Ada", streak: 30, date: "2024-09-24" },
-  // { username: "Rene", streak: 45, date: "2024-09-23" },
-  // { username: "Archimedes", streak: 50, date: "2024-09-22" },
-  // { username: "Euclid", streak: 65, date: "2024-09-21" },
-  // { username: "Emmy", streak: 75, date: "2024-09-20" },
-  // { username: "Niels", streak: 85, date: "2024-09-19" },
-  // { username: "David", streak: 95, date: "2024-09-18" },
-  // { username: "Bernhard", streak: 100, date: "2024-09-17" }
+  { username: "Rene", streak: 45, date: "2024-09-23" },
+  { username: "Archimedes", streak: 50, date: "2024-09-22" },
+  { username: "Euclid", streak: 65, date: "2024-09-21" },
+  { username: "Emmy", streak: 75, date: "2024-09-20" },
+  { username: "Niels", streak: 85, date: "2024-09-19" },
+  { username: "David", streak: 95, date: "2024-09-18" },
+  { username: "Bernhard", streak: 100, date: "2024-09-17" }
 ];
 
 
