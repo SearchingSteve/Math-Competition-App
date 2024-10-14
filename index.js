@@ -7,7 +7,8 @@ const { updateLeaderboard, getHighestStreak } = require("./utils/leaderboard");
 let currentQuestion = ""; // Store the current question
 let currentCorrectAnswer = ""; // Store the correct answer
 let currentStreak = 0; // Initialize streak counter
-let currentDifficulty = 1; // Set default difficulty level (1 for easy)
+let difficulty = 1; // Set default difficulty level (1 for easy)
+let questionIndex = 0; // Initialize question index
 let questionsCompleted = 0; // Initialize questions completed counter
 let questionsSuccessful = 0; // Initialize questions successful counter
 let numQuestions = 3; // Set number of questions per quiz
@@ -22,13 +23,13 @@ let numQuestions = 3; // Set number of questions per quiz
     { username: "Sophie", streak: 10 },
     { username: "Pythagoras", streak: 20 },
     { username: "Ada", streak: 30 },
-    { username: "Rene", streak: 45 },
-    { username: "Archimedes", streak: 50 },
-    { username: "Euclid", streak: 65 },
-    { username: "Emmy", streak: 75 },
-    { username: "Niels", streak: 85 },
-    { username: "David", streak: 95 },
-    { username: "Bernhard", streak: 100 }
+    // { username: "Rene", streak: 45 },
+    // { username: "Archimedes", streak: 50 },
+    // { username: "Euclid", streak: 65 },
+    // { username: "Emmy", streak: 75 },
+    // { username: "Niels", streak: 85 },
+    // { username: "David", streak: 95 },
+    // { username: "Bernhard", streak: 100 }
 ];
 
 
@@ -38,26 +39,29 @@ app.use(express.static("public"));
 
 // Home route
 app.get("/", (req, res) => {
-  res.render("index");
-});
+    // Check if reset has been requested
+    if (req.query.reset) {
+      questionsCompleted = 0; // Reset questions completed counter
+      // Optionally reset other quiz-related data here if needed
+    }
+    res.render("index");
+  });
+  
 
 // Quiz route
 app.get("/quiz", (req, res) => {
-  // Check if there's a difficulty change request
-  if (req.query.difficulty) {
-    currentDifficulty = parseInt(req.query.difficulty);
-  }
-  const [question, correctAnswer] = getRandomQuestion(currentDifficulty);
+  const difficulty = req.query.difficulty || '1'; // Default to level 1 if not specified
+  const [question, correctAnswer] = getRandomQuestion(difficulty);
   currentQuestion = question;
   currentCorrectAnswer = correctAnswer;
   res.render("quiz", {
     question: currentQuestion,
-    questionsCompleted: questionsCompleted + 1,
-    questionsSuccessful: questionsSuccessful,
+    questionsSuccessful,
+    questionsCompleted,
     numQuestions: numQuestions,
     correctAnswer: currentCorrectAnswer,
     streak: currentStreak,
-    difficulty: currentDifficulty,
+    difficulty: difficulty,
   });
 });
 
@@ -67,41 +71,47 @@ app.post("/quiz", (req, res) => {
   const isCorrect = parseFloat(answer) === parseFloat(currentCorrectAnswer); // Check if answer is correct
 
   if (isCorrect) {
+    questionsSuccessful++; // Increment successful questions counter
     currentStreak++; // Increment streak on correct answer
     const highestStreak = getHighestStreak(leaderboard, username);
+    console.log(`New streak for ${username}: ${currentStreak}, highest was: ${highestStreak}`);
     if (currentStreak > highestStreak) {
       updateLeaderboard(leaderboard, username, currentStreak); // Update only if current streak is a new highest
+      console.log(`Leaderboard updated for ${username}: ${currentStreak}`);
     }
   } else {
     currentStreak = 0; // Reset streak on incorrect answer
   }
 
   questionsCompleted++;
+  
 
   if (questionsCompleted >= numQuestions) {
+    const highestStreak = getHighestStreak(leaderboard, username);
     res.render("quiz-completion", {
       // Render completion page instead of another question
-      questionsCompleted: questionsCompleted,
-      questionsSuccessful: questionsSuccessful,
+      questionsCompleted,
+      questionsSuccessful,
       streak: currentStreak,
-      highestStreak: getHighestStreak(leaderboard, username),
+      highestStreak
     });
     questionsCompleted = 0; // Reset questions completed for the next quiz
+    questionsSuccessful = 0; // Reset questions successful for the next quiz
     return;
   }
 
-  const [newQuestion, newCorrectAnswer] = getRandomQuestion(currentDifficulty);
+  const [newQuestion, newCorrectAnswer] = getRandomQuestion(difficulty);
   currentQuestion = newQuestion;
   currentCorrectAnswer = newCorrectAnswer;
 
   const prompt = getRandomPrompt(isCorrect);
   res.render("quiz", {
     question: currentQuestion,
-    questionsCompleted: questionsCompleted + 1,
+    questionsCompleted,
     numQuestions: numQuestions,
     correctAnswer: currentCorrectAnswer,
     streak: currentStreak,
-    difficulty: currentDifficulty,
+    difficulty: difficulty,
     prompt: prompt,
   });
 });

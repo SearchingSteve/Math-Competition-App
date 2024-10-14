@@ -2,21 +2,27 @@
 <%- include('partials/header') %>
 
 <h1>Math Quiz</h1>
+<!-- Back Button with Confirmation and Reset Logic -->
 <div class="back-button-container">
-    <a href="/" class="back-button">Back to Home</a>
+  <a href="/?reset=true" class="back-button" onclick="return confirm('Are you sure you want to go back? You will lose your current quiz progress, but not your streak.');">
+      Back to Home
+  </a>
 </div>
+
 
 <!-- Display Streak -->
 <p class="streak">Current Streak: <%= streak %> </p>
 
 <!-- Quiz Section -->
-<p>Question <%= questionsCompleted %> of <%= numQuestions %></p>
+<!-- Quiz Section -->
+<p>Question <%= questionsCompleted + 1 %> of <%= numQuestions %></p>
 <p>Answer the question below:</p>
+
 <form action="/quiz" method="POST">
     <p class="question">Question: <%= question %></p>
     <!-- User Answer Input -->
     <label for="answer">Your Answer:</label>
-    <input type="text" id="answer" name="answer" required>
+    <input type="text" id="answer" autocomplete="off" name="answer" required>
     <input type="hidden" id="difficulty" name="difficulty" value="<%= difficulty %>">
     <!-- Submit Button -->
     <button type="submit">Submit</button>

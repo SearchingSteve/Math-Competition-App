@@ -4,12 +4,11 @@
         <h1>Welcome to the Math Competition App</h1>
         <div class="navigation__container">
 
+            <form action="/quiz" method="get">
             <!-- Difficulty Selector -->
             <div class="difficulty-selector">
                 <label for="easy">
-                    <input class="difficulty-input" type="radio" id="easy" name="difficulty" value="1"
-                        onchange="updateDifficulty('1')">
-                    <div class="difficulty-tile">
+                    <input class="difficulty-input" type="radio" id="easy" name="difficulty" value="1">                    <div class="difficulty-tile">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -18,9 +17,7 @@
                     </div>
                 </label>
                 <label for="medium">
-                    <input class="difficulty-input" type="radio" id="medium" name="difficulty" value="2"
-                        onchange="updateDifficulty('2')">
-                    <div class="difficulty-tile">
+                    <input class="difficulty-input" type="radio" id="medium" name="difficulty" value="2">                    <div class="difficulty-tile">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -35,8 +32,7 @@
                     </div>
                 </label>
                 <label for="hard">
-                    <input class="difficulty-input" type="radio" id="hard" name="difficulty" value="3"
-                        onchange="updateDifficulty('3')">
+                    <input class="difficulty-input" type="radio" id="hard" name="difficulty" value="3">
                     <div class="difficulty-tile">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
@@ -59,18 +55,25 @@
             <button class="comic-button" onclick="location.href='/quiz';">
                 Start Quiz
             </button>
+        </form>
             <button class="comic-button" onclick="location.href='/leaderboards';">
                 View Leaderboards
             </button>
+            
         </div>
+       
 
     </main>
     </body>
 
     <script>
-        function updateDifficulty(selectedDifficulty) {
-            document.getElementById('difficulty').value = selectedDifficulty; // Currently not working
-        }
+        // Log the difficulty choice for debugging
+    document.querySelectorAll('.difficulty-input').forEach(input => {
+        input.addEventListener('change', function() {
+            console.log("Difficulty set to: " + this.value);
+        });
+    });
     </script>
+    
 
     </html>
