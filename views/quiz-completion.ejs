@@ -5,10 +5,10 @@
 <div class="username-container">
   <span class="username">
     <%= username %>
-    <br />
+    <br>
     <!-- Display Streak -->
-    <span class="streak">Current Streak: <%= streak %> </span>
-  </span>
+    <span class="streak"> <% if (streak > 0) { %>Current Streak: <%= streak %><% } else { %>No current streak<% } %></span>
+</span>
 </div>
 
 <!-- Display quiz completion message -->

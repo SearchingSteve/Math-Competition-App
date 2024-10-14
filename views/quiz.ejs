@@ -9,16 +9,15 @@
     </a>
   </div>
 
-         <!-- Display current user username -->
-         <div class="username-container">
-          <span class="username">
-            <%= username %>
-            <br>
-            <!-- Display Streak -->
-        <span class="streak">Current Streak: <%= streak %>
-        </span>
-          </span>
-          </div>
+  <!-- Display current user username -->
+  <div class="username-container">
+    <span class="username">
+      <%= username %>
+        <br>
+        <!-- Display Streak -->
+        <span class="streak"> <% if (streak > 0) { %>Current Streak: <%= streak %><% } else { %>No current streak<% } %></span>
+    </span>
+  </div>
 
   <!-- Quiz Section -->
   <h1>Math Quiz</h1>
@@ -46,4 +45,5 @@
       <p>Difficulty Level: <%= difficulty %>
       </p>
       </body>
+
       </html>

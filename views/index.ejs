@@ -6,10 +6,9 @@
         <div class="username-container">
             <span class="username">
                 <%= username %>
-                    <br>
+                <br>
                     <!-- Display Streak -->
-                    <span class="streak">Current Streak: <%= streak %>
-                    </span>
+                    <span class="streak"> <% if (streak > 0) { %>Current Streak: <%= streak %><% } else { %>No current streak<% } %></span>
             </span>
         </div>
 
@@ -72,7 +71,7 @@
                     Start Quiz
                 </button>
             </form>
-            
+
             <!-- View Leaderboards button -->
             <button class="comic-button" onclick="location.href='/leaderboards';">
                 View Leaderboards

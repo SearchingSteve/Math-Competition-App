@@ -90,8 +90,8 @@
       <%= username %>
       <br>
       <!-- Display Streak -->
-  <span class="streak">Current Streak: <%= streak %>
-  </span>
+      <span class="streak"> <% if (streak > 0) { %>Current Streak: <%= streak %><% } else { %>No current streak<% } %></span>
+</span>
     </span>
     </div>
         
