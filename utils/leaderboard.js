@@ -1,28 +1,20 @@
 /**
- * Updates the leaderboard with a new streak for the given username.
- * If the username exists and the new streak is higher than the current one, it updates the streak.
- * If the username doesn't exist, it adds the username to the leaderboard with the given streak.
- *
- * @param {Array<Object>} leaderboard - The leaderboard array containing user objects with `username` and `streak`.
- * @param {string} username - The name of the user whose streak is being updated.
- * @param {number} streak - The new streak value to update or add.
+ * Updates or adds a new entry to the leaderboard.
+ * If the user exists and a new highest streak is achieved, updates the streak and the date.
+ * If the user does not exist, adds a new entry with the current date.
+ * 
+ * @param {Array<Object>} leaderboard - The array holding all leaderboard entries.
+ * @param {string} username - The username of the participant.
+ * @param {number} streak - The new streak achieved by the participant.
  */
 function updateLeaderboard(leaderboard, username, streak) {
-  // Check if username is falsy or empty and set default
-  if (!username || username.trim() === "") {
-    throw new Error("Invalid username: " + username);
-  }
-
-  const index = leaderboard.findIndex((entry) => entry.username === username);
-  if (index !== -1) {
-    // Only update the streak if the new streak is higher than the current
-    if (leaderboard[index].streak < streak) {
-      leaderboard[index].streak = streak;
+    const index = leaderboard.findIndex(user => user.username === username);
+    if (index !== -1) {
+        leaderboard[index].streak = streak;
+        leaderboard[index].date = new Date().toISOString().split('T')[0]; // Update the date when the streak is updated
+    } else {
+        leaderboard.push({ username, streak, date: new Date().toISOString().split('T')[0] });
     }
-  } else {
-    // Add a new entry if the user does not exist
-    leaderboard.push({ username, streak });
-  }
 }
 
 /**

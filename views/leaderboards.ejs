@@ -13,6 +13,7 @@
 
     h1,p,.leaderboard-headers {
         color: white;
+       
     }
 
     .leaderboard-container {
@@ -20,11 +21,14 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        
+        
     }
 
     .leaderboard-list {
         list-style: none;
         padding: 0;
+        width: 100%; 
     }
 
     .leaderboard-headers {
@@ -40,7 +44,7 @@
     .leaderboard-item {
         background: linear-gradient(to right, #89f7fe, #66a6ff);
         margin: 10px 0;
-        padding: 15px; 
+        padding: 20px; 
         border-radius: 8px;
         display: flex;
         justify-content: space-between;
@@ -54,12 +58,15 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .username, .streak, .rank {
-        flex-grow: 1;
-        text-align: center; 
-        margin: 0 30px; 
-        flex-grow: 0;  /* Do not allow these columns to grow */
-        flex-shrink: 0;  /* Prevent shrinking to keep alignment */
+    .rank, .username, .streak, .date {
+        flex: 1; /* Ensures each column has equal space */
+        text-align: center; /* Aligns text to the center of each column */
+        padding: 0 10px; /* Adds padding within each column */
+        min-width: 100px; /* Set a minimum width for each column to manage space */
+    }
+
+    .username {
+        flex: 2; /* Allows more space for usernames to handle longer names without affecting other columns */
     }
 
     /* Specific styles for top 3 */
@@ -103,7 +110,8 @@
         <div class="leaderboard-headers">
             <span class="rank">Rank</span>
             <span class="username">Username</span>
-            <span class="streak">High <br>Score</span>
+            <span class="streak">High<br>Score</span>
+            <span class="date">Date<br>Achieved</span>
         </div>
         <ul class="leaderboard-list">
             <% leaderboard.slice(0,10).forEach(function(entry, index) { %>
@@ -111,6 +119,7 @@
                     <span class="rank"><%= index + 1 %></span>
                     <span class="username"><%= entry.username %></span>
                     <span class="streak"><%= entry.streak %></span>
+                    <span class="date"><%= entry.date %></span>
                 </li>
             <% }); %>
         </ul>
