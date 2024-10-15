@@ -1,96 +1,106 @@
 # Math Competition App
 
-This is the starting point for the **Math Competition App** assignment. The goal of this project is to create a simple web application where users can practice solving math questions, track their streak of correct answers, and view leaderboards.
+The **Math Competition App** is a simple web application where users can practice solving math questions, track their streak of correct answers, and view leaderboards.
 
 ## Features
-- **Home Page**: 
-  - Start a new quiz or view the leaderboards.
-  - Display the user's last recorded streak or a message indicating no streak exists.
-  
-- **Quiz Page**: 
-  - Display math questions for the user to answer.
-  - Track the user's streak of correct answers.
 
-- **Quiz Completion Page**:
-  - Display the current streak.
-  - Allow the user to start a new quiz or return to the home page.
+- **Home Page**: Start a new quiz or view leaderboards. Display the user's last recorded streak or a message if no streak exists.
+- **Quiz Page**: Answer math questions while tracking the user's streak of correct answers.
+- **Quiz Completion Page**: Show the current streak and allow the user to start a new quiz or return to the home page.
+- **Leaderboards Page**: Display the top 10 streaks, including the number of correct answers and when the streak was achieved.
 
-- **Leaderboards Page**:
-  - Display the top 10 streaks, including the number of correct answers and when the streak was obtained.
+## Table of Contents
+
+1. [Setup Instructions](#setup-instructions)
+2. [Development Guidelines](#development-guidelines)
+3. [Folder Structure](#folder-structure)
+4. [Run the Application](#run-the-application)
+5. [Running Unit Tests](#running-unit-tests)
+6. [License](#license)
 
 ## Setup Instructions
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org) installed on your machine.
 - A code editor, such as [VSCode](https://code.visualstudio.com/).
-
-## How to Use this Template
-
-This repository is set up as a **GitHub template** to help you quickly create your own version of the **Math Competition App**.
 
 ### Steps to Create Your Own Repository
 
 1. **Click the "Use this template" button** at the top of this page on GitHub.
-   
-1. **Name your new repository** and choose its visibility (public or private).
+2. **Name your new repository** and choose its visibility (public or private).
+3. Clone your new repository to your local machine:
+   git clone <your-new-repo-url>
+4. Navigate into the project directory and install the necessary dependencies:
+   cd <your-new-repo-name>
+   npm install
+5. **Run the app**:
+   npm start
+   This starts the server at `http://localhost:3000/`.
 
-1. Once your repository is created, **clone your new repo** to your local machine:
-    ```bash
-    git clone <your-new-repo-url>
-    ```
-
-1. Navigate into the project directory and install the necessary dependencies:
-    ```bash
-    cd <your-new-repo-name>
-    npm install
-    ```
-  
-1. **Run the app:**
-    ```bash
-    npm start
-    ```
-    This will start the server at `http://localhost:3000/`.
-
-1. **Run tests:**
-    ```bash
-    npm test
-    ```
-    This will run the unit tests for the application.
-
-1. You can now begin working on your project, adding your own code and committing your changes as you go:
-    ```bash
-    git add .
-    git commit -m "First commit"
-    git push origin main
-    ```
-
-By using this template, you'll have the project structure and initial setup ready to go, so you can focus on building the functionality!
+6. **Run tests**:
+   npm test
+   This runs the unit tests for the application.
 
 ## Development Guidelines
 
-1. **Homepage**:
-   - The homepage links should bring you to a new quiz or the leaderboards.
-   - Show the last recorded streak or a message indicating there was no streak.
-   
-2. **Quiz Functionality**:
-   - Implement logic to present math questions.
-   - Check the correctness of user answers and update the streak.
-   
-3. **Leaderboards**:
-   - Track and display the top 10 streaks in memory (no database required).
+### Homepage
+- Links to start a new quiz or view the leaderboards.
+- Display the last recorded streak or a message if no streak exists.
 
-4. **Testing**:
-   - Write unit tests for:
-     - Generating a new math question.
-     - Checking if the user's answer is correct or incorrect.
-   - Make sure tests pass before submitting the assignment.
+### Quiz Functionality
+- Users can select the difficulty level: Easy, Medium, or Hard.
+- Generate math questions based on the selected difficulty, tracking the user's streak of consecutive correct answers.
+- After each question, check if the answer is correct and provide feedback. Update the streak accordingly; reset the streak to zero on an incorrect answer.
+- The quiz should consist of a configurable number of questions (e.g., 3 questions).
+- At the end of the quiz, display a summary of the user's performance.
 
-## Submission Guidelines
-- Submit a link to your GitHub repository through the Teams assignment.
-- Ensure all required functionality is implemented and working.
-- The project should run with `npm start` and all tests should pass with `npm test`.
+### Leaderboard
+- Track and display the top 10 streaks in memory, including:
+  - Username (default to "MyUser" for each session)
+  - Highest streak
+  - Date the streak was achieved
+- Sort the leaderboard by streak in descending order.
 
-## Notes
-- Extra npm packages are allowed (except for templating engines like React).
-- All pages should use **.ejs templates**.
-- No persistent data storage is required; all data can be stored in memory.
+### Testing
+- Write unit tests covering core functionality:
+  - Generating random math questions of varying difficulty.
+  - Identifying correct and incorrect answers.
+  - Handling edge cases (e.g., floating point precision).
+- Use the Jest testing framework to automate unit testing.
+
+## Folder Structure
+
+- **`/public/`**: Static assets (CSS, images, etc.).
+- **`/views/`**: EJS templates for rendering HTML pages.
+- **`/utils/`**: Utility functions (e.g., `mathUtilities.js`, `leaderboard.js`).
+- **`app.js`**: Main application file for server setup and routing.
+- **`README.md`**: Documentation file.
+
+## Run the Application
+
+1. Clone the repository:
+   git clone <your-new-repo-url>
+2. Navigate to the project directory:
+   cd <your-new-repo-name>
+3. Install dependencies:
+   npm install
+4. Run the server:
+   npm start
+5. Access the app at `http://localhost:3000/` in your browser.
+
+## Running Unit Tests
+
+1. Install Jest (if not already installed):
+   npm install jest --save-dev
+2. Run the tests:
+   npm test
+3. Review the test results to ensure all functionalities are working as expected.
+
+## License
+
+This project and all associated files are licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License. - see the LICENSE file for details.
+
+## Author
+
+Stephen Crocker
