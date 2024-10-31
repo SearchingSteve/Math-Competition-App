@@ -18,4 +18,3 @@ This repository contains school projects completed as part of my coursework. **U
 Any misuse of the material, including but not limited to plagiarism or academic dishonesty, is solely the responsibility of the individual involved. I assume no liability for any actions taken by third parties who use this material inappropriately.
 
 For more details on the license, visit [Creative Commons CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
-"""
