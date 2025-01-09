@@ -1,6 +1,6 @@
 # Math Competition App
 
-The **Math Competition App** is a simple web application where users can practice solving math questions, track their streak of correct answers, and view leaderboards.
+The **Math Competition App** is a simple express based web application where users can practice solving math questions, track their streak of correct answers, and view leaderboards.
 
 ## Features
 
@@ -17,6 +17,7 @@ The **Math Competition App** is a simple web application where users can practic
 4. [Run the Application](#run-the-application)
 5. [Running Unit Tests](#running-unit-tests)
 6. [License](#license)
+7. [Author](#author)
 
 ## Setup Instructions
 
@@ -99,8 +100,9 @@ The **Math Competition App** is a simple web application where users can practic
 
 ## License
 
-This project and all associated files are licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License. - see the LICENSE file for details.
+This project is provided for **personal use only**. Redistribution, modification, or commercial use in any form is strictly prohibited without prior written permission from the author.
+
+For detailed license terms, refer to the [LICENSE](./LICENSE.md) file.
 
 ## Author
-
-Stephen Crocker
+- **[Stephen Crocker](https://github.com/SearchingSteve)** 
