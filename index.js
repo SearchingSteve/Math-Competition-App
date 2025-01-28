@@ -133,7 +133,10 @@ app.get("/leaderboards", (req, res) => {
     });
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+// Export Express app for Vercel to use
+module.exports = app;
+
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server running at http://localhost:${port}`);
+// });

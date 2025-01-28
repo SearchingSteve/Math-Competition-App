@@ -1,6 +1,6 @@
 {
   "name": "math-competition",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Math competition application using Express.js",
   "main": "index.js",
   "scripts": {
